@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control de Proveedores Iarsa</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Bienvenido al Control de Proveedores</h1>
+    <a href="{{ url_for('agregar_proveedor') }}">Agregar proveedor</a><br>
+    <a href="{{ url_for('agregar_producto') }}">Agregar producto</a><br>
+    <a href="{{ url_for('proveedores') }}">Ver proveedores</a>
+</body>
+</html>

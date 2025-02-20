@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedores</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Lista de Proveedores y sus Productos</h1>
+    <table>
+        <tr>
+            <th>Proveedor</th>
+            <th>Producto</th>
+            <th>Precio</th>
+        </tr>
+        {% for proveedor in proveedores %}
+        <tr>
+            <td>{{ proveedor['nombre'] }}</td>
+            <td>{{ proveedor['producto'] }}</td>
+            <td>{{ proveedor['precio'] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
