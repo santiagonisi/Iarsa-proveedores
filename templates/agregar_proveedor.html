@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Proveedor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Agregar Proveedor</h1>
+    <form action="{{ url_for('agregar_proveedor') }}" method="POST">
+        <label for="nombre">Nombre:</label><br>
+        <input type="text" name="nombre" required><br>
+        
+        <label for="telefono">Teléfono:</label><br>
+        <input type="text" name="telefono"><br>
+        
+        <label for="email">Email:</label><br>
+        <input type="email" name="email"><br>
+        
+        <label for="direccion">Dirección:</label><br>
+        <input type="text" name="direccion"><br><br>
+        
+        <button type="submit">Agregar</button>
+    </form>
+</body>
+</html>
