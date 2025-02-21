@@ -8,10 +8,15 @@
 </head>
 <body>
     <h1>Bienvenido al Control de Proveedores</h1>
-    <a href="{{ url_for('agregar_presupuesto') }}">Fecha presupuesto</a><br>
-    <a href="{{ url_for('agregar_presupuesto') }}">Cotizacion</a><br>
-    <a href="{{ url_for('agregar_presupuesto') }}">Centro de costo</a><br>
+    <a href="{{ url_for('agregar_fechapresupuesto') }}">Fecha presupuesto</a><br>
+    <a href="{{ url_for('agregar_cotizacion') }}">Cotizacion</a><br>
+    <a href="{{ url_for('agregar_centrodecosto') }}">Centro de costo</a><br>
     <a href="{{ url_for('agregar_productos') }}">Productos</a><br>
+    <a href="{{ url_for('agregar_proveedores') }}">Proveedores</a><br>
+    <a href="{{ url_for('fechapresupuesto') }}">Fecha presupuesto</a>
+    <a href="{{ url_for('cotizacion') }}">Cotizacion</a>
+    <a href="{{ url_for('centrodecosto') }}">Centro de costo</a>
+    <a href="{{ url_for('productos') }}">Productos</a>
     <a href="{{ url_for('proveedores') }}">Proveedores</a>
 </body>
 </html>
