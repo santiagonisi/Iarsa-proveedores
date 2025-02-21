@@ -29,7 +29,7 @@ def agregar_proveedor():
         cursor = conn.cursor()
         cursor.execute('''
         INSERT INTO proveedores (nombre, razonsocial, contacto, cuit, rubro, ubicacion)
-        VALUES (?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?)
         ''', (nombre, razonsocial, contacto, cuit, rubro, ubicacion))
         conn.commit()
         conn.close()
