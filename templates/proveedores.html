@@ -11,14 +11,20 @@
     <table>
         <tr>
             <th>Proveedor</th>
-            <th>Producto</th>
-            <th>Precio</th>
+            <th>Razon social</th>
+            <th>Contacto</th>
+            <th>Cuit</th>
+            <th>Rubro</th>
+            <th>Ubicacion</th>
         </tr>
         {% for proveedor in proveedores %}
         <tr>
             <td>{{ proveedor['nombre'] }}</td>
-            <td>{{ proveedor['producto'] }}</td>
-            <td>{{ proveedor['precio'] }}</td>
+            <td>{{ proveedor['razonsocial'] }}</td>
+            <td>{{ proveedor['Contacto'] }}</td>
+            <td>{{ proveedor['cuit'] }}</td>
+            <td>{{ proveedor['rubro'] }}</td>
+            <td>{{ proveedor['ubicacion'] }}</td>
         </tr>
         {% endfor %}
     </table>

@@ -11,15 +11,21 @@
     <form action="{{ url_for('agregar_proveedor') }}" method="POST">
         <label for="nombre">Nombre:</label><br>
         <input type="text" name="nombre" required><br>
+
+        <label for="razonsocial">Razon social:</label><br>
+        <input type="text" name="razonsocial" required><br>
         
-        <label for="telefono">Teléfono:</label><br>
-        <input type="text" name="telefono"><br>
+        <label for="email">Contacto:</label><br>
+        <input type="email" name="contacto"><br>
         
-        <label for="email">Email:</label><br>
-        <input type="email" name="email"><br>
+        <label for="cuit">Cuit:</label><br>
+        <input type="text" name="cuit" required><br>
+
+        <label for="rubro">Rubro:</label><br>
+        <input type="text" name="rubro"><br><br>
         
-        <label for="direccion">Dirección:</label><br>
-        <input type="text" name="direccion"><br><br>
+        <label for="ubicacion">Ubicacion:</label><br>
+        <input type="text" name="ubicacion"><br><br>
         
         <button type="submit">Agregar</button>
     </form>
