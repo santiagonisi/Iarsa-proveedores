@@ -19,16 +19,18 @@ def index():
 def agregar_proveedor():
     if request.method == 'POST':
         nombre = request.form['nombre']
-        telefono = request.form['telefono']
-        email = request.form['email']
-        direccion = request.form['direccion']
+        razonsocial = request.form['razonsocial']
+        contacto = request.form['contacto']
+        cuit = request.form['cuit']
+        rubro = request.form['rubro']
+        ubicacion = request.form['ubicacion']
         
         conn = obtener_conexion()
         cursor = conn.cursor()
         cursor.execute('''
-        INSERT INTO proveedores (nombre, telefono, email, direccion)
+        INSERT INTO proveedores (nombre, razonsocial, contacto, cuit, rubro, ubicacion)
         VALUES (?, ?, ?, ?)
-        ''', (nombre, telefono, email, direccion))
+        ''', (nombre, razonsocial, contacto, cuit, rubro, ubicacion))
         conn.commit()
         conn.close()
 
