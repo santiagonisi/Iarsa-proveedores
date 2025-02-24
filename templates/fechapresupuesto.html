@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fecha de Presupuestos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Fecha de Presupuestos</h1>
+    <a href="{{ url_for('agregar_fechapresupuesto') }}">Agregar</a><br>
+    <table>
+        <tr>
+            <th>Fecha</th>
+            <th>Acciones</th>
+        </tr>
+        {% for fecha in fechas %}
+        <tr>
+            <td>{{ fecha.fecha }}</td>
+            <td>
+                <a href="{{ url_for('editar_fechapresupuesto', fecha_id=fecha.id) }}">Editar</a>
+                <a href="{{ url_for('eliminar_fechapresupuesto', fecha_id=fecha.id) }}">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>    
+</body>
+</html>
