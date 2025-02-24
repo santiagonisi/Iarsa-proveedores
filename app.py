@@ -9,6 +9,23 @@ def obtener_conexion():
     conn.row_factory = sqlite3.Row  #acceder a las filas por nombre de columna
     return conn
 
+#crear la tabla centros_costos si no existe
+def crear_tabla_centros_costos():
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS centros_costos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nombre TEXT NOT NULL,
+        departamento TEXT NOT NULL
+    )
+    ''')
+    conn.commit()
+    conn.close()
+
+#crear la tabla centros_costos al iniciar la aplicación
+crear_tabla_centros_costos()
+
 #Página principal
 @app.route('/')
 def index():
@@ -95,6 +112,26 @@ def agregar_fecha():
     conn.close()
 
     return render_template('agregar_fecha.html', proveedores=proveedores, productos=productos)
+
+# Agregar un centro de costos
+@app.route('/agregar_centro_costos', methods=['GET', 'POST'])
+def agregar_centro_costos():
+    if request.method == 'POST':
+        nombre = request.form['nombre']
+        departamento = request.form['departamento']
+        
+        conn = obtener_conexion()
+        cursor = conn.cursor()
+        cursor.execute('''
+        INSERT INTO centros_costos (nombre, departamento)
+        VALUES (?, ?)
+        ''', (nombre, departamento))
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('index'))
+    
+    return render_template('agregar_centro_costos.html')
 
 #agregar un producto
 @app.route('/agregar_producto', methods=['GET', 'POST'])

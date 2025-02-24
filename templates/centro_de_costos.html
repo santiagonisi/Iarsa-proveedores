@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Centro de Costos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Agregar Centro de Costos</h1>
+    <form action="{{ url_for('agregar_centro_costos') }}" method="POST">
+        <label for="nombre">Nombre del Centro de Costos:</label><br>
+        <input type="text" name="nombre" required><br>
+
+        <label for="departamento">Departamento:</label><br>
+        <select name="departamento" required>
+            <option value="Sector Obras">Sector Obras</option>
+            <option value="Sector Taller">Sector Taller</option>
+            <option value="Sector Compras">Sector Compras</option>
+            <option value="Sector Oficina Tecnica">Sector Oficina Tecnica</option>
+            <option value="Sector Contable">Sector Contable</option>
+        </select><br>
+
+        <button type="submit">Agregar</button>
+    </form>
+</body>
+</html>
