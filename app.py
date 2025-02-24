@@ -38,6 +38,35 @@ def agregar_proveedor():
     
     return render_template('agregar_proveedor.html')
 
+#agregar una cotizacion
+@app.route('/agregar_cotizacion', methods=['GET', 'POST'])
+def agregar_cotizacion():
+    if request.method == 'POST':
+        proveedor_id = request.form['proveedor_id']
+        producto_id = request.form['producto_id']
+        precio = request.form['precio']
+        
+        conn = obtener_conexion()
+        cursor = conn.cursor()
+        cursor.execute('''
+        INSERT INTO proveedores_productos (proveedor_id, producto_id, precio)
+        VALUES (?, ?, ?)
+        ''', (proveedor_id, producto_id, precio))
+        conn.commit()
+        conn.close()
+
+        return redirect(url_for('index'))
+    
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM proveedores')
+    proveedores = cursor.fetchall()
+    cursor.execute('SELECT * FROM productos')
+    productos = cursor.fetchall()
+    conn.close()
+
+    return render_template('agregar_cotizacion.html', proveedores=proveedores, productos=productos)
+
 #agregar un producto
 @app.route('/agregar_producto', methods=['GET', 'POST'])
 def agregar_producto():
