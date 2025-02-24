@@ -23,9 +23,6 @@ def crear_base_de_datos():
     )
     ''')
 
-
-
-
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS proveedores_productos (
         proveedor_id INTEGER,
