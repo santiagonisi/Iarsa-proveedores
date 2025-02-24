@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Cotizacion</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Agregar Cotizacion<h1>
+    <form action="{{ url_for('agregar_cotizacion') }}" method="POST">
+        <label for="producto/item">Producto/Item:</label><br>
+        <input type="text" name="producto/item" required><br>
+
+        <label for="valor">Valor:</label><br>
+        <input type="text" name="valor" required><br>
+        
+        <button type="submit">Agregar</button>
+    </form>
+</body>
+</html>
