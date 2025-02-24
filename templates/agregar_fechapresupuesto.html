@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Fecha de Presupuestos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <h1>Agregar Fecha de Presupuestos</h1>
+    <form action="{{ url_for('agregar_fecha') }}" method="POST">
+        <label for="fecha">Fecha:</label><br>
+        <input type="date" name="fecha" required><br>
+        
+        <button type="submit">Agregar</button>
+    </form>
+</body>
+</html> 
