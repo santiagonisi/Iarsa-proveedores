@@ -7,19 +7,40 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
-    <h1>Centro de Costos</h1>
-    <a href="{{ url_for('agregar_centro_costos') }}">Agregar Centro de Costos</a><br>
-    <table>
-        <tr>
-            <th>Nombre</th>
-            <th>Departamento</th>
-        </tr>
-        {% for centro in centros %}
-        <tr>
-            <td>{{ centro.nombre }}</td>
-            <td>{{ centro.departamento }}</td>
-        </tr>
-        {% endfor %}
-    </table>   
+    <header>
+        <h1>Centro de Costos</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="{{ url_for('home') }}">Inicio</a></li>
+            <li><a href="{{ url_for('centro_de_costos') }}">Centro de Costos</a></li>
+            <li><a href="{{ url_for('empleados') }}">Empleados</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Centro de Costos</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for centro_de_costo in centros_de_costos %}
+                    <tr>
+                        <td>{{ centro_de_costo.nombre }}</td>
+                        <td>{{ centro_de_costo.descripcion }}</td>
+                        <td>
+                            <a href="{{ url_for('editar_centro_de_costo', id=centro_de_costo.id) }}">Editar</a>
+                            <a href="{{ url_for('eliminar_centro_de_costo', id=centro_de_costo.id) }}">Eliminar</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('crear_centro_de_costo') }}">Crear Centro de Costo</a>
+    </main>
 </body>
 </html>

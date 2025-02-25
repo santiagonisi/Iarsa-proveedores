@@ -133,6 +133,17 @@ def agregar_centro_costos():
     
     return render_template('agregar_centro_costos.html')
 
+#ver centro de costo
+@app.route('/centros_costos')
+def centros_costos():
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+    cursor.execute('SELECT * FROM centros_costos')
+    centros_costos = cursor.fetchall()
+    conn.close()
+
+    return render_template('centros_costos.html', centros_costos=centros_costos)
+
 #agregar un producto
 @app.route('/agregar_producto', methods=['GET', 'POST'])
 def agregar_producto():
