@@ -1,15 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for # type: ignore
+from flask import Flask, render_template, request, redirect, url_for
 import sqlite3
 
 app = Flask(__name__)
 
-#conectar a la base de datos
+#connect to the database
 def obtener_conexion():
     conn = sqlite3.connect('empresa.db')
-    conn.row_factory = sqlite3.Row  #acceder a las filas por nombre de columna
+    conn.row_factory = sqlite3.Row  # access rows by column name
     return conn
 
-#crear la tabla centros_costos si no existe
+#create the table centros_costos if it does not exist
 def crear_tabla_centros_costos():
     conn = obtener_conexion()
     cursor = conn.cursor()
@@ -23,15 +23,72 @@ def crear_tabla_centros_costos():
     conn.commit()
     conn.close()
 
-#crear la tabla centros_costos al iniciar la aplicación
+#create the table centros_costos when the application starts
 crear_tabla_centros_costos()
+
+# Create the table proveedores if it does not exist
+def crear_tabla_proveedores():
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS proveedores (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nombre TEXT NOT NULL,
+        razonsocial TEXT NOT NULL,
+        contacto TEXT NOT NULL,
+        cuit TEXT NOT NULL,
+        rubro TEXT NOT NULL,
+        ubicacion TEXT NOT NULL
+    )
+    ''')
+    conn.commit()
+    conn.close()
+
+# Create the table productos if it does not exist
+def crear_tabla_productos():
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS productos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nombre TEXT NOT NULL,
+        categoria TEXT NOT NULL,
+        cantidad INTEGER NOT NULL
+    )
+    ''')
+    conn.commit()
+    conn.close()
+
+#create the tables proveedores and productos at application startup
+def crear_tabla_proveedores_productos():
+    conn = obtener_conexion()
+    cursor = conn.cursor()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS proveedores_productos (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        proveedor_id INTEGER NOT NULL,
+        producto_id INTEGER NOT NULL,
+        precio REAL,
+        fecha TEXT,
+        FOREIGN KEY (proveedor_id) REFERENCES proveedores(id),
+        FOREIGN KEY (producto_id) REFERENCES productos(id)
+    )
+    ''')
+    conn.commit()
+    conn.close()
+
+# Create all necessary tables when the application starts
+crear_tabla_proveedores()
+crear_tabla_productos()
+crear_tabla_proveedores_productos()
+
 
 #Página principal
 @app.route('/')
 def index():
     return render_template('index.html')
 
-#agregar un proveedor
+#add a provider
 @app.route('/agregar_proveedor', methods=['GET', 'POST'])
 def agregar_proveedor():
     if request.method == 'POST':
@@ -66,8 +123,8 @@ def agregar_cotizacion():
         conn = obtener_conexion()
         cursor = conn.cursor()
         cursor.execute('''
-        INSERT INTO proveedores_productos (proveedor_id, producto_id, precio)
-        VALUES (?, ?, ?)
+        INSERT INTO proveedores_productos (proveedor_id, producto_id, precio, fecha)
+        VALUES (?, ?, ?, NULL)
         ''', (proveedor_id, producto_id, precio))
         conn.commit()
         conn.close()
@@ -84,20 +141,21 @@ def agregar_cotizacion():
 
     return render_template('agregar_cotizacion.html', proveedores=proveedores, productos=productos)
 
-#agregar una fecha de presupuesto
+#add a budget date
 @app.route('/agregar_fecha', methods=['GET', 'POST'])
 def agregar_fecha():
     if request.method == 'POST':
         proveedor_id = request.form['proveedor_id']
         producto_id = request.form['producto_id']
         fecha = request.form['fecha']
-        
+#add a quotation
         conn = obtener_conexion()
         cursor = conn.cursor()
         cursor.execute('''
-        INSERT INTO proveedores_productos (proveedor_id, producto_id, fecha)
-        VALUES (?, ?, ?)
-        ''', (proveedor_id, producto_id, fecha))
+        UPDATE proveedores_productos
+        SET fecha = ?
+        WHERE proveedor_id = ? AND producto_id = ?
+        ''', (fecha, proveedor_id, producto_id))
         conn.commit()
         conn.close()
 
@@ -113,7 +171,7 @@ def agregar_fecha():
 
     return render_template('agregar_fecha.html', proveedores=proveedores, productos=productos)
 
-# Agregar un centro de costos
+# Add a cost center
 @app.route('/agregar_centro_costos', methods=['GET', 'POST'])
 def agregar_centro_costos():
     if request.method == 'POST':
@@ -133,7 +191,7 @@ def agregar_centro_costos():
     
     return render_template('agregar_centro_costos.html')
 
-#ver centro de costo
+#view cost center
 @app.route('/centros_costos')
 def centros_costos():
     conn = obtener_conexion()
@@ -143,7 +201,7 @@ def centros_costos():
     conn.close()
 
     return render_template('centros_costos.html', centros_costos=centros_costos)
-
+#add a product
 #agregar un producto
 @app.route('/agregar_producto', methods=['GET', 'POST'])
 def agregar_producto():
@@ -165,7 +223,7 @@ def agregar_producto():
     
     return render_template('agregar_producto.html')
 
-#ver los proveedores y los productos de cada uno
+#view providers and their products
 @app.route('/proveedores')
 def proveedores():
     conn = obtener_conexion()
@@ -182,4 +240,6 @@ def proveedores():
     return render_template('proveedores.html', proveedores=proveedores)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    import os
+    debug_mode = os.getenv('FLASK_DEBUG', 'False').lower() in ['true', '1', 't']
+    app.run(debug=debug_mode)

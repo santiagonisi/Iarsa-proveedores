@@ -10,13 +10,13 @@
     <h1>Agregar Producto</h1>
     <form action="{{ url_for('agregar_producto') }}" method="POST">
         <label for="nombre">Nombre del Producto:</label><br>
-        <input type="text" name="nombre" required><br>
+        <input type="text" name="nombre" id="nombre" required><br>
         
         <label for="categoria">Categoría:</label><br>
-        <input type="text" name="categoria"><br>
+        <input type="text" name="categoria" id="categoria" required><br>
         
         <label for="cantidad">Cantidad:</label><br>
-        <input type="number" name="cantidad"><br><br>
+        <input type="number" name="cantidad" id="cantidad" required><br><br>
         
         <button type="submit">Agregar</button>
     </form>

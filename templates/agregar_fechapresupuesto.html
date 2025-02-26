@@ -9,9 +9,10 @@
 <body>
     <h1>Agregar Fecha de Presupuestos</h1>
     <form action="{{ url_for('agregar_fecha') }}" method="POST">
-        <label for="fecha">Fecha:</label><br>
-        <input type="date" name="fecha" required><br>
-        
+        <div>
+        <input type="date" name="fecha" required class="input-spacing">
+            <input type="date" name="fecha" required><br>
+        </div>
         <button type="submit">Agregar</button>
     </form>
 </body>

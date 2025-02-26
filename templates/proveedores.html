@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proveedores</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href='{{ url_for("static", filename="css/styles.css") }}'>
 </head>
 <body>
     <h1>Lista de Proveedores y sus Productos</h1>
@@ -17,11 +17,12 @@
             <th>Rubro</th>
             <th>Ubicacion</th>    
         </tr>
+        <!-- Iterates over the list of providers -->
         {% for proveedor in proveedores %}
         <tr>
             <td>{{ proveedor['nombre'] }}</td>
             <td>{{ proveedor['razonsocial'] }}</td>
-            <td>{{ proveedor['Contacto'] }}</td>
+            <td>{{ proveedor['contacto'] }}</td>
             <td>{{ proveedor['cuit'] }}</td>
             <td>{{ proveedor['rubro'] }}</td>
             <td>{{ proveedor['ubicacion'] }}</td>

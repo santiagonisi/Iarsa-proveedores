@@ -8,8 +8,8 @@
 </head>
 <body>
     <h1>Fecha de Presupuestos</h1>
-    <a href="{{ url_for('agregar_fechapresupuesto') }}">Agregar</a><br>
-    <table>
+    <a href="{{ url_for('agregar_fechapresupuesto') }}" class="spaced-link">Agregar</a>
+    <table class="budget-table">
         <tr>
             <th>Fecha</th>
             <th>Acciones</th>
@@ -19,7 +19,7 @@
             <td>{{ fecha.fecha }}</td>
             <td>
                 <a href="{{ url_for('editar_fechapresupuesto', fecha_id=fecha.id) }}">Editar</a>
-                <a href="{{ url_for('eliminar_fechapresupuesto', fecha_id=fecha.id) }}">Eliminar</a>
+                <a href="{{ url_for('eliminar_fechapresupuesto', fecha_id=fecha.id) }}" onclick="return confirm('¿Está seguro de que desea eliminar este presupuesto?');">Eliminar</a>
             </td>
         </tr>
         {% endfor %}
